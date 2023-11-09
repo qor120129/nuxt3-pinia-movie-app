@@ -25,7 +25,6 @@ const route = useRoute()
 const about = computed(() => 
     store.$state
 )
-console.log(about.value, 'ldsjfds')
 const navigations = [
   {
     name: 'Search',

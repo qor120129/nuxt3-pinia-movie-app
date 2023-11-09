@@ -15,6 +15,7 @@
 <script setup>
 import { ref } from 'vue'
 import Loader from '@/components/Loader'
+const { $loadImage } = useNuxtApp()
 
 const imageLoading = ref(true)
 const props = defineProps({
@@ -28,10 +29,10 @@ async function init() {
   if (!poster || poster === 'N/A') {
     imageLoading.value = false
   }
-  // await loadImage(poster)
+  await $loadImage(poster)
   imageLoading.value = false
 }
-
+init()
 
 console.log(i18n.greetings.hello)
 </script>

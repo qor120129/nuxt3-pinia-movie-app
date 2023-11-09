@@ -8,7 +8,7 @@
       {{ about.name }}
     </div>
     <div>
-      <a :href="about.notion" target='_blank'>Notion Link</a>
+      <a :href="about.notion" class="primary" target='_blank'>Notion Link</a>
     </div>
     <div>
       {{ about.email }}
@@ -27,15 +27,13 @@ import { aboutStore } from '@/stores/about'
 const imageLoading = ref(true)
 const store = aboutStore()
 const about = store.$state
+const { $loadImage } = useNuxtApp()
 
-init(){
-  await $loadImage(about.image)
+async function init() {
+  $loadImage(about.image)
   return imageLoading.value = false
 }
-// async function init(){
-//   await $loadImage(about.image)
-//   return imageLoading.value = false
-// }
+init()
 </script>
 
 <style lang="scss" scoped>

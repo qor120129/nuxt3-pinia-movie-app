@@ -70,27 +70,30 @@ import { movieStore } from '@/stores/movie'
 import Loader from '../components/Loader'
 
 const imageLoading = ref(true)
-const store = movieStore()
 const route = useRoute()
+const { loading, theMovie, searchMovieWithId} = movieStore()
+const { $loadImage } = useNuxtApp()
+
+// const { searchMovieWithId } = store
 
 // const movie = computed(() => store.state.movie)
-const theMovie = computed(() => store.state.movie.theMovie)
-const loading = computed(() => store.state.movie.loading)
+// const theMovie = computed(() => store.theMovie)
+// const loading = computed(() => store.loading)
 
-searchID = () => {
-  route.dispatch('movie/searchMovieWithId', {
-    id: route.params.id
-  })
-}
+searchMovieWithId({
+  id: route.params.id
+})
+// searchID = () => {
+// }
 const requestDiffSizeImage = (url, size = 700) => {
   if (!url || url === 'N/A') {
-    imageLoading = false
+    imageLoading.value = false
     return ''
   }
   const src = url.replace('SX300', `SX${size}`)
   $loadImage(src)
     .then(() => {
-      imageLoading = false
+      imageLoading.value = false
     })
   return src
 }

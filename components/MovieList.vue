@@ -15,9 +15,10 @@
 <script setup>
 import MovieItem from './MovieItem'
 import Loader from './Loader'
-import { movieStore } from '@/stores/movie'
-const movie = movieStore()
-// const movie = computed(() => store.movie)
+import  {movieStore} from '@/stores/movie'
+const store = movieStore()
+const movie = computed(() => store.$state)
+console.log('as', store)
 
 </script>
 <style lang="scss" scoped>

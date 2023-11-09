@@ -3,7 +3,7 @@
     <input v-model="title" type="text" class="form-control" placeholder="Search for Movies, Series & more"
       @keyup.enter="apply">
     <div class="selects">
-      <select v-for="item in filters" :key="item" v-model="$data[item.name]" class="form-select">
+      <select v-for="item in filters" :key="item" :value="$data[item.name]" class="form-select">
         <option value="" v-if="item.name === 'year'">All Years</option>
         <option v-for="item in item.items" :key="item">{{ item }}</option>
       </select>
@@ -13,13 +13,15 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref , watch} from 'vue'
 import { movieStore } from '@/stores/movie'
+
 const store = movieStore()
-const title = ref("")
-const type = ref("movie")
-const number = ref(10)
-const year = ref("")
+const { searchMovies } = store
+const title = ''
+const type = reactive('movie')
+const number = 10
+const year = ''
 const filters = ref([
   {
     name: 'type',
@@ -41,13 +43,16 @@ const filters = ref([
     })()
   },
 ])
+
 async function apply() {
-  store.dispatch('movie/searchMovies', {
-    title: title.value,
-    type: type.value,
-    number: number.value,
-    year: year.value,
-  })
+  searchMovies(
+    {
+      title: title,
+      type: type,
+      number: number,
+      year: year
+    }
+  )
 }
 </script>
 <style lang="scss" scoped>

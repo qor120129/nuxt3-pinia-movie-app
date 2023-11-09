@@ -1,7 +1,7 @@
 <template>
   <footer>
     <Logo />
-    <a href="">{{ year }} fastcampus - HEROPY</a>
+    <a href="" class="primary">{{ year }} fastcampus - HEROPY</a>
   </footer>
 </template>
 

@@ -14,13 +14,14 @@ export default defineNuxtConfig({
         ],
         link: [
           { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-          { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css' },
+          // { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css' },
+          { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' },
           { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
           { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Oswald:wght@500&family=Roboto:wght@400;700&display=swap' },
         ]
     }
   },
-  css: ['~/assets/css/main.css'],
+  css: ["@/assets/css/main.css"],
   vite: {
     css: {
       preprocessorOptions: {        
