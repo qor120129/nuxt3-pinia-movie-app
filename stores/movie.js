@@ -1,4 +1,3 @@
-import axios from 'axios'
 import _uniqBy from 'lodash/uniqBy'
 const _defaultMessage = 'Search for the movie title!'
 
@@ -11,41 +10,28 @@ export const movieStore = defineStore('movie', {
     theMovie: {}
   }),
 
-  getters: {
-  },
-  
   actions: {
-    // updateState(state, payload) {
-    //   Object.keys(payload).forEach(key => {
-    //     state[key] = payload[key]
-    //   })
-    // },
-    // resetMovies(state) {
-    //   state.movies = [],
-    //     state.message = _defaultMessage,
-    //     state.loading = false
-    // },
+    async resetMovies() {
+      this.movies = [],
+      this.message = _defaultMessage,
+      this.loading = false
+    },
     async searchMovies(payload) {
-      console.log('payload', payload)
-      if (this.loading) return                 
+      if (this.loading) return
 
-      this.message= ''
-      this.movies= []
-      this.loading= true
-      // updateState({
-      //   message: '',
-      //   movies: [],
-      //   loading: true,
-      // })
+      this.message = ''
+      this.movies = []
+      this.loading = true
+
       try {
         const res = await _fetchMovie({
           ...payload,
           page: 1
         })
 
-        const { Search, totalResults } = res.data
-          this.movies = _uniqBy(Search, 'imdbID')
+        const { Search, totalResults } = res.body
 
+        this.movies = _uniqBy(Search, 'imdbID')
         const total = parseInt(totalResults, 10)
         const pageLength = Math.ceil(total / 10)
 
@@ -56,55 +42,40 @@ export const movieStore = defineStore('movie', {
               ...payload,
               page
             })
-            const { Search } = res.data
-            this.movies= [
+            const { Search } = res.body
+
+            this.movies = [
               ...this.movies,
               ..._uniqBy(Search, 'imdbID'),
             ]
           }
         }
-      } catch ({ message }) {
-        this.movies= [],
-        this.message
-  
+      } catch (error) {
+        this.movies = [],
+        this.message = error.statusMessage
       } finally {
-        this.loadin= false
-    
+        this.loading = false
       }
     },
     async searchMovieWithId(payload) {
-      if (this.loading) return 
+      if (this.loading) return
 
-      this.theMovie= {}
-      this.loading= true
-      // updateState({
-      // })
-
+      this.theMovie = {}
+      this.loading = true
+      
       try {
         const res = await _fetchMovie(payload)
-        updateState({
-          theMovie: res.data
-        })
-        console.log('res', res)
+        this.theMovie = res.body
       } catch (error) {
-        updateState({
-          theMovie: {}
-        })
+        this.theMovie = {}
       } finally {
-        updateState({
-          loading: false,
-        })
+        this.loading = false
+
       }
     }
   },
-
-
 })
 async function _fetchMovie(payload) {
-  return await axios.post('/.netlify/functions/movie', payload)
+  // return await axios.post('/api/movie', payload)
+  return await  $fetch('/api/movie', { method: 'post', query: payload })
 }
-// function updateState(state, payload) {
-//   Object.keys(payload).forEach(key => {
-//     state[key] = payload[key]
-//   })
-// }

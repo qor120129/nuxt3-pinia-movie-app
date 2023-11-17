@@ -3,8 +3,9 @@
     <input v-model="title" type="text" class="form-control" placeholder="Search for Movies, Series & more"
       @keyup.enter="apply">
     <div class="selects">
-      <select v-for="item in filters" :key="item" :value="$data[item.name]" class="form-select">
-        <option value="" v-if="item.name === 'year'">All Years</option>
+      <select v-for="(item, index) in filters" :key="item" v-model="item.value" class="form-select"
+        @change="change(item.value, index)">
+        <option value='' v-if="index === 2">All Years</option>
         <option v-for="item in item.items" :key="item">{{ item }}</option>
       </select>
     </div>
@@ -13,26 +14,28 @@
 </template>
 
 <script setup>
-import { ref , watch} from 'vue'
+import { ref } from 'vue'
 import { movieStore } from '@/stores/movie'
 
 const store = movieStore()
+
 const { searchMovies } = store
-const title = ''
-const type = reactive('movie')
-const number = 10
-const year = ''
+
+const title = ref('')
+const type = ref('movie')
+const number = ref(10)
+const year = ref('')
 const filters = ref([
   {
-    name: 'type',
+    value: 'movie',
     items: ['movie', 'series', 'episode']
   },
   {
-    name: 'number',
+    value: 10,
     items: [10, 20, 30]
   },
   {
-    name: 'year',
+    value: '',
     items: (() => {
       const years = []
       const thisYear = new Date().getFullYear()
@@ -44,13 +47,25 @@ const filters = ref([
   },
 ])
 
+
+function change(value, index) {
+  if (index === 0) {
+    type.value = value
+  }
+  if (index === 1) {
+    number.value = Number(value)
+  }
+  if (index === 2) {
+    year.value = value
+  }
+}
 async function apply() {
   searchMovies(
     {
-      title: title,
-      type: type,
-      number: number,
-      year: year
+      title: title.value,
+      type: type.value,
+      number: number.value,
+      year: year.value,
     }
   )
 }

@@ -24,7 +24,7 @@ const props = defineProps({
     default: {}
   }
 })
-async function init() {
+async function init(){
   const poster = props.movie.Poster
   if (!poster || poster === 'N/A') {
     imageLoading.value = false
@@ -34,7 +34,6 @@ async function init() {
 }
 init()
 
-console.log(i18n.greetings.hello)
 </script>
 
 <style lang="scss" scoped>

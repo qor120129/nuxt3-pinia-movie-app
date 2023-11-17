@@ -5,8 +5,7 @@
 </template>
 
 <script setup>
-const props = defineProps({
-  movie: {
+defineProps ({
     size: {
       type: Number,
       default: 2
@@ -23,7 +22,6 @@ const props = defineProps({
       type: Number,
       default: 0
     }
-  }
 })
 </script>
 

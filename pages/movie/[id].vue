@@ -67,13 +67,16 @@
 <script setup>
 import { ref } from 'vue'
 import { movieStore } from '@/stores/movie'
+
 import Loader from '../components/Loader'
 
-const imageLoading = ref(true)
 const route = useRoute()
-const { loading, theMovie, searchMovieWithId} = movieStore()
+const store = movieStore()
+const { searchMovieWithId } = store
+const { loading, theMovie, } = storeToRefs(store)
 const { $loadImage } = useNuxtApp()
 
+const imageLoading = ref(true)
 // const { searchMovieWithId } = store
 
 // const movie = computed(() => store.state.movie)
@@ -83,21 +86,25 @@ const { $loadImage } = useNuxtApp()
 searchMovieWithId({
   id: route.params.id
 })
-// searchID = () => {
-// }
+
 const requestDiffSizeImage = (url, size = 700) => {
   if (!url || url === 'N/A') {
     imageLoading.value = false
+    console.log('이미지 없음',imageLoading)
     return ''
   }
   const src = url.replace('SX300', `SX${size}`)
   $loadImage(src)
-    .then(() => {
-      imageLoading.value = false
+  .then((res) => {
+    console.log(res)
     })
+  imageLoading.value = false
+  // try {
+  // } catch (error) {
+  //   console.log(error)
+  // }
   return src
 }
-
 </script>
 <style lang="scss" scoped>
 .container {

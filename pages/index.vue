@@ -10,7 +10,8 @@ import Headline from '../components/Headline'
 import Search from '../components/Search'
 import { movieStore } from '@/stores/movie'
 const store = movieStore()
+const { resetMovies } = store
 
-store.resetMovies
+resetMovies()
 
 </script>

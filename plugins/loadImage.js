@@ -17,14 +17,17 @@
 //   }
 // })
 
-export default defineNuxtPlugin(() => {
+export default defineNuxtPlugin(()=>{
   return {
+    parallel: true,
     provide: {
       loadImage: (key) => {
-        const img = document.createElement('img')
-        img.src = key
-        img.addEventListener('load', () => {
-          resolve()
+        return new Promise(resolve => {
+          const img = document.createElement('img')
+          img.src = key
+          img.addEventListener('load', () => {
+            resolve()
+          })
         })
       }
     }

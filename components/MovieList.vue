@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    <div :class="{ 'no-result': !movie.movies.length }" class="inner">
-      <Loader v-if="movie.loading" />
-      <div v-if="movie.message" class="message">
-        <div>{{ movie.message }}</div>
+    <div :class="{ 'no-result': !movies.length }" class="inner">
+      <Loader v-if="loading" />
+      <div v-if="message" class="message">
+        <div>{{ message }}</div>
       </div>
       <div v-else="message" class="movies">
-        <MovieItem v-for="item in movie.movies" :key="item.imdbID" :movie='item' />
+        <MovieItem v-for="item in movies" :key="item.imdbID" :movie='item' />
       </div>
     </div>
   </div>
@@ -15,14 +15,13 @@
 <script setup>
 import MovieItem from './MovieItem'
 import Loader from './Loader'
-import  {movieStore} from '@/stores/movie'
+import { movieStore } from '@/stores/movie'
 const store = movieStore()
-const movie = computed(() => store.$state)
-console.log('as', store)
+const { message, movies, loading } = storeToRefs(store)
+
 
 </script>
 <style lang="scss" scoped>
-
 .container {
   margin-top: 30px;
 
