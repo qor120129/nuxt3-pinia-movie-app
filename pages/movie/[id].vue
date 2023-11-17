@@ -96,13 +96,8 @@ const requestDiffSizeImage = (url, size = 700) => {
   const src = url.replace('SX300', `SX${size}`)
   $loadImage(src)
   .then((res) => {
-    console.log(res)
+    imageLoading.value = false
     })
-  imageLoading.value = false
-  // try {
-  // } catch (error) {
-  //   console.log(error)
-  // }
   return src
 }
 </script>
