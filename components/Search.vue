@@ -18,9 +18,7 @@ import { ref } from 'vue'
 import { movieStore } from '@/stores/movie'
 
 const store = movieStore()
-
 const { searchMovies } = store
-
 const title = ref('')
 const type = ref('movie')
 const number = ref(10)
@@ -46,7 +44,6 @@ const filters = ref([
     })()
   },
 ])
-
 
 function change(value, index) {
   if (index === 0) {

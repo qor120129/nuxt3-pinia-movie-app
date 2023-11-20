@@ -16,9 +16,9 @@
 import MovieItem from './MovieItem'
 import Loader from './Loader'
 import { movieStore } from '@/stores/movie'
+
 const store = movieStore()
 const { message, movies, loading } = storeToRefs(store)
-
 
 </script>
 <style lang="scss" scoped>

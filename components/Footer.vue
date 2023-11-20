@@ -6,11 +6,11 @@
 </template>
 
 <script setup>
+
 import { ref } from 'vue'
 import Logo from '../components/Logo'
 
 const year = ref(new Date().getFullYear())
-
 
 </script>
 

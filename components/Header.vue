@@ -15,6 +15,7 @@
 </template>
 
 <script setup>
+
 import { useRouter, useRoute } from 'vue-router'
 import Logo from "@/components/Logo.vue"
 import { aboutStore } from '@/stores/about'

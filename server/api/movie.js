@@ -1,8 +1,6 @@
 // const axios  = require("axios")
 
-import axios from "axios"
-const OMDb_API_KEY = '42cc3285'
-
+const { OMDb_API_KEY } = process.env
 export default defineEventHandler(async (event) => {
   const payload = getQuery(event)
 
@@ -14,7 +12,7 @@ export default defineEventHandler(async (event) => {
   try {
     const data = await $fetch(url)
     if (data.Error) {
-      setResponseStatus(event, 400)
+      // setResponseStatus(event, 400)
       throw createError({
         statusCode: 400,
         statusMessage: data.Error,

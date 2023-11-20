@@ -15,8 +15,8 @@
 <script setup>
 import { ref } from 'vue'
 import Loader from '@/components/Loader'
-const { $loadImage } = useNuxtApp()
 
+const { $loadImage } = useNuxtApp()
 const imageLoading = ref(true)
 const props = defineProps({
   movie: {

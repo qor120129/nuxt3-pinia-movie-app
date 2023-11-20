@@ -77,11 +77,6 @@ const { loading, theMovie, } = storeToRefs(store)
 const { $loadImage } = useNuxtApp()
 
 const imageLoading = ref(true)
-// const { searchMovieWithId } = store
-
-// const movie = computed(() => store.state.movie)
-// const theMovie = computed(() => store.theMovie)
-// const loading = computed(() => store.loading)
 
 searchMovieWithId({
   id: route.params.id
