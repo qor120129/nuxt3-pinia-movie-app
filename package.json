@@ -13,8 +13,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "test:unit": "jest --watchAll"
-    
+    "test:unit": "jest --watchAll",
+    "start": "node index.js"
 
   },
   "browserslist": [
