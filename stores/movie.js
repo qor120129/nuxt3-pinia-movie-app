@@ -1,6 +1,6 @@
 import _uniqBy from 'lodash/uniqBy'
 const _defaultMessage = 'Search for the movie title!'
-
+const { CLIENT_URL } = process.env
 export const movieStore = defineStore('movie', {
   // namespaced: true,
   state: () => ({
@@ -78,6 +78,6 @@ export const movieStore = defineStore('movie', {
 async function _fetchMovie(payload) {
   const url =  process.client
   ? '/api/movie'
-  : `${process.env.CLIENT_URL}/api/movie`
+  : `${CLIENT_URL}/api/movie`
   return await  $fetch(url, { method: 'post', query: payload })
 }

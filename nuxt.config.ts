@@ -1,3 +1,4 @@
+const { CLIENT_URL } = process.env
 
 
 export default defineNuxtConfig({
@@ -19,7 +20,7 @@ export default defineNuxtConfig({
           { hid: 'og:title', property: 'og:title', content: 'Nuxt Movie App' },
           { hid: 'og:description', property: 'og:description', content: 'The OMDb API is a RESTful web service to obtain movie information, all content and images on the site are contributed and maintained by our users.' },
           { hid: 'og:image', property: 'og:image', content: 'https://raw.githubusercontent.com/qor120129/vue3-movie-app/master/src/assets/logo.png' },
-          { hid: 'og:image', property: 'og:url', content: process.env.CLIENT_URL },
+          { hid: 'og:image', property: 'og:url', content:CLIENT_URL },
         ],
         link: [
           { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },

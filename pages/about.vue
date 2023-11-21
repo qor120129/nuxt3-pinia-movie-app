@@ -28,6 +28,7 @@ const route = useRoute()
 const imageLoading = ref(true)
 const {name, notion, email, phone, image} = aboutStore()
 const { $loadImage } = useNuxtApp()
+const { CLIENT_URL } = process.env
 
 async function init() {
   $loadImage(image)
@@ -42,7 +43,7 @@ const head = () => {
       { hid: 'og:title', property: 'og:title', content: name },
       { hid: 'og:description', property: 'og:description', content: email},
       { hid: 'og:image', property: 'og:image', content: image },
-      { hid: 'og:image', property: 'og:url', content: `${process.env.CLIENT_URL}${route.fullPath}` },
+      { hid: 'og:image', property: 'og:url', content: `${CLIENT_URL}${route.fullPath}` },
     ],
   }
 }
