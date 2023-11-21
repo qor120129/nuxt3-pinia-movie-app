@@ -2,21 +2,36 @@
   "name": "nuxt-app",
   "private": true,
   "type": "module",
+  "jest": {
+    "transformIgnorePatterns": [
+      "node_modules/(?!axios)"
+    ]
+  },
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "test:unit": "jest --watchAll"
+    
+
   },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ],
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "@vue/test-utils": "^2.4.0-alpha.2",
     "nuxt": "^3.8.0",
+    "nuxt-lodash": "^2.5.3",
     "postcss": "^8.4.31",
     "postcss-loader": "^7.3.3",
     "sass": "^1.69.5",
     "sass-loader": "^13.3.2",
-    "unplugin-vue-components": "^0.25.2",
     "vue": "^3.3.7",
     "vue-router": "^4.2.5"
   },

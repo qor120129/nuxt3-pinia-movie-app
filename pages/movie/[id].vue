@@ -66,36 +66,46 @@
 
 <script setup>
 import { ref } from 'vue'
-import { movieStore } from '@/stores/movie'
-
 import Loader from '../components/Loader'
 
-const route = useRoute()
+import { movieStore } from '@/stores/movie'
 const store = movieStore()
-const { searchMovieWithId } = store
 const { loading, theMovie, } = storeToRefs(store)
+
+const route = useRoute()
+await useAsyncData('moive', () => store.searchMovieWithId({ id: route.params.id }))
+
 const { $loadImage } = useNuxtApp()
-
 const imageLoading = ref(true)
-
-searchMovieWithId({
-  id: route.params.id
-})
-
 const requestDiffSizeImage = (url, size = 700) => {
   if (!url || url === 'N/A') {
     imageLoading.value = false
-    console.log('이미지 없음',imageLoading)
+    console.log('이미지 없음', imageLoading)
     return ''
   }
   const src = url.replace('SX300', `SX${size}`)
   $loadImage(src)
-  .then((res) => {
-    imageLoading.value = false
+    .then((res) => {
+      imageLoading.value = false
     })
   return src
 }
+const head =()=> {
+  return {
+    meta: [
+      { hid: 'og:type', property: 'og:type', content: 'website' },
+      { hid: 'og:site_name', property: 'og:site_name', content: 'Nuxt Movie App' },
+      { hid: 'og:title', property: 'og:title', content: theMovie.Title },
+      { hid: 'og:description', property: 'og:description', content: theMovie.Plot },
+      { hid: 'og:image', property: 'og:image', content: theMovie.Poster },
+      { hid: 'og:image', property: 'og:url', content: `${process.env.CLIENT_URL}${route.fullPath}` },
+    ],
+  }
+}
+head()
+
 </script>
+
 <style lang="scss" scoped>
 .container {
   padding-top: 40px;

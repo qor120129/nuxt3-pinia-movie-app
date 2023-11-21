@@ -42,13 +42,13 @@ const navigations = [
   }
 ]
 
-function isMatch(path) {
+const isMatch=(path) =>{
   if (!path) return false
   
   return path.test(route.fullPath)
 }
 
-function toAbout() {
+const toAbout=() =>{
   router.push("/about" )
 }
 

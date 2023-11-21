@@ -1,4 +1,3 @@
-// const axios  = require("axios")
 
 const { OMDb_API_KEY } = process.env
 export default defineEventHandler(async (event) => {

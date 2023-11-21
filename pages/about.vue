@@ -2,19 +2,19 @@
   <div class="about">
     <div class="photo">
       <Loader v-if="imageLoading" absolute />
-      <img :src="about.image" :alt="about.name">
+      <img :src="image" :alt="name">
     </div>
     <div class="name">
-      {{ about.name }}
+      {{ name }}
     </div>
     <div>
-      <a :href="about.notion" class="primary" target='_blank'>Notion Link</a>
+      <a :href="notion" class="primary" target='_blank'>Notion Link</a>
     </div>
     <div>
-      {{ about.email }}
+      {{ email }}
     </div>
     <div>
-      {{ about.phone }}
+      {{ phone }}
     </div>
   </div>
 </template>
@@ -24,16 +24,29 @@ import { ref } from 'vue'
 import Loader from '@/components/Loader';
 import { aboutStore } from '@/stores/about'
 
+const route = useRoute()
 const imageLoading = ref(true)
-const store = aboutStore()
-const about = store.$state
+const {name, notion, email, phone, image} = aboutStore()
 const { $loadImage } = useNuxtApp()
 
 async function init() {
-  $loadImage(about.image)
+  $loadImage(image)
   return imageLoading.value = false
 }
 init()
+const head = () => {
+  return {
+    meta: [
+      { hid: 'og:type', property: 'og:type', content: 'website' },
+      { hid: 'og:site_name', property: 'og:site_name', content: 'Nuxt Movie App' },
+      { hid: 'og:title', property: 'og:title', content: name },
+      { hid: 'og:description', property: 'og:description', content: email},
+      { hid: 'og:image', property: 'og:image', content: image },
+      { hid: 'og:image', property: 'og:url', content: `${process.env.CLIENT_URL}${route.fullPath}` },
+    ],
+  }
+}
+head()
 </script>
 
 <style lang="scss" scoped>

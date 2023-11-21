@@ -76,6 +76,8 @@ export const movieStore = defineStore('movie', {
   },
 })
 async function _fetchMovie(payload) {
-  // return await axios.post('/api/movie', payload)
-  return await  $fetch('/api/movie', { method: 'post', query: payload })
+  const url =  process.client
+  ? '/api/movie'
+  : `${process.env.CLIENT_URL}/api/movie`
+  return await  $fetch(url, { method: 'post', query: payload })
 }

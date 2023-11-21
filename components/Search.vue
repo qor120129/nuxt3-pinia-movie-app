@@ -45,7 +45,7 @@ const filters = ref([
   },
 ])
 
-function change(value, index) {
+const change=(value, index) =>{
   if (index === 0) {
     type.value = value
   }

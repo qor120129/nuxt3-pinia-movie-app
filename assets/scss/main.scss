@@ -8,7 +8,7 @@ $container-max-widths: (
   xl: 1140px,
   xxl: 1364px
 );
-$primary: #2a8b32;
+$primary: #ffb23f;
 $link-primary: $primary;
 $link-hover-color:$primary;
 $link-color: $primary;
@@ -26,7 +26,7 @@ $link-hover-color:shift-color($link-color, 20%);
 .btn {
   border-radius: 0.375rem;
   -webkit-border-radius: 0.375rem;
-  -moz-border-radius: 0.375rem;
+  -moz-border-radius: 0.375rem; 
   -ms-border-radius: 0.375rem;
   -o-border-radius: 0.375rem;
 }
