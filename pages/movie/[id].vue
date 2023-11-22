@@ -72,20 +72,21 @@ import { movieStore } from '@/stores/movie'
 
 const route = useRoute()
 const store = movieStore()
+const { data } = storeToRefs(store.theMovie)
 // const { theMovie, loading } = storeToRefs({store})
 
 useAsyncData('moive', () => store.searchMovieWithId({ id: route.params.id })).then((res) => {
-//   useHead({
-//   meta: [
-//     { hid: 'og:type', property: 'og:type', content: 'website' },
-//     { hid: 'og:site_name', property: 'og:site_name', content: '무비' },
-//     { hid: 'og:title', property: 'og:title', content: '무비' },
-//     { hid: 'og:description', property: 'og:description', content: store.theMovie.Plot },
-//     console.log('2.$2.2', store.theMovie.Title),
-//     { hid: 'og:image', property: 'og:image', content: store.theMovie.Poster },
-//     { hid: 'og:image', property: 'og:url', content: `${process.env.CLIENT_URL}${route.fullPath}` },
-//   ],
-// })
+  useHead({
+  meta: [
+    { hid: 'og:type', property: 'og:type', content: 'website' },
+    { hid: 'og:site_name', property: 'og:site_name', content: '무비' },
+    { hid: 'og:title', property: 'og:title', content: '무비' },
+    { hid: 'og:description', property: 'og:description', content: store.theMovie.Plot },
+    console.log('2.$2.2', store.theMovie.Title),
+    { hid: 'og:image', property: 'og:image', content: store.theMovie.Poster },
+    { hid: 'og:image', property: 'og:url', content: `${process.env.CLIENT_URL}${route.fullPath}` },
+  ],
+})
 })
 
 const { $loadImage } = useNuxtApp()
@@ -102,17 +103,17 @@ const requestDiffSizeImage = (url, size = 700) => {
     })
   return src
 }
-useHead({
-  meta: [
-    { hid: 'og:type', property: 'og:type', content: 'website' },
-    { hid: 'og:site_name', property: 'og:site_name', content: '무비' },
-    { hid: 'og:title', property: 'og:title', content: '무비' },
-    { hid: 'og:description', property: 'og:description', content: store.theMovie.Plot },
-    console.log('2.$2.2', store.theMovie.Title),
-    { hid: 'og:image', property: 'og:image', content: store.theMovie.Poster },
-    { hid: 'og:image', property: 'og:url', content: `${process.env.CLIENT_URL}${route.fullPath}` },
-  ],
-})
+// useHead({
+//     meta: [
+//       { hid: 'og:type', property: 'og:type', content: 'website' },
+//       { hid: 'og:site_name', property: 'og:site_name', content: 'Nuxt Movie App' },
+//       { hid: 'og:title', property: 'og:title', content: data },
+//       { hid: 'og:description', property: 'og:description', content: data},
+//       { hid: 'og:image', property: 'og:image', content: data },
+//       console.log('2.$2.2', data),
+//       { hid: 'og:image', property: 'og:url', content: `${process.env.CLIENT_URL}${route.fullPath}` },
+//     ],
+// })
 
 </script>
 
