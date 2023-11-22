@@ -79,7 +79,7 @@ useAsyncData('moive', () => store.searchMovieWithId({ id: route.params.id })).th
   meta: [
     { hid: 'og:type', property: 'og:type', content: 'website' },
     { hid: 'og:site_name', property: 'og:site_name', content: '무비' },
-    { hid: 'og:title', property: 'og:title', content: '' },
+    { hid: 'og:title', property: 'og:title', content: '무비' },
     { hid: 'og:description', property: 'og:description', content: store.theMovie.Plot },
     console.log('2.$2.2', store.theMovie.Title),
     { hid: 'og:image', property: 'og:image', content: store.theMovie.Poster },
@@ -106,7 +106,7 @@ const requestDiffSizeImage = (url, size = 700) => {
 //   meta: [
 //     { hid: 'og:type', property: 'og:type', content: 'website' },
 //     { hid: 'og:site_name', property: 'og:site_name', content: '무비' },
-//     { hid: 'og:title', property: 'og:title', content: '' },
+//     { hid: 'og:title', property: 'og:title', content: '무비' },
 //     { hid: 'og:description', property: 'og:description', content: store.theMovie.Plot },
 //     console.log('2.$2.2', store.theMovie.Title),
 //     { hid: 'og:image', property: 'og:image', content: store.theMovie.Poster },
