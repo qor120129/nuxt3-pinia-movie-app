@@ -90,7 +90,6 @@ const requestDiffSizeImage = (url, size = 700) => {
   return src
 }
 
-const { CLIENT_URL } = process.env
 const head =()=> {
   return {
     meta: [
@@ -99,7 +98,7 @@ const head =()=> {
       { hid: 'og:title', property: 'og:title', content: theMovie.Title },
       { hid: 'og:description', property: 'og:description', content: theMovie.Plot },
       { hid: 'og:image', property: 'og:image', content: theMovie.Poster },
-      { hid: 'og:image', property: 'og:url', content: `${CLIENT_URL}${route.fullPath}` },
+      { hid: 'og:image', property: 'og:url', content: `${process.env.CLIENT_URL}${route.fullPath}` },
     ],
   }
 }

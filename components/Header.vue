@@ -43,7 +43,6 @@ const navigations = [
 
 const isMatch=(path) =>{
   if (!path) return false
-  
   return path.test(route.fullPath)
 }
 
