@@ -4,10 +4,11 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "start": "nuxt dev",
+    "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "start": "node server.js"
   },
   "browserslist": [
     "> 1%",
