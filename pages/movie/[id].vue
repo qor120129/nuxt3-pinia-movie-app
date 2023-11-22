@@ -73,26 +73,27 @@ import { movieStore } from '@/stores/movie'
 
 const route = useRoute()
 const store = movieStore()
-
-
-useAsyncData('moive', () => store.searchMovieWithId({ id: route.params.id })).then((res) => {
-  //   useHead({
-  //   meta: [
-  //     { hid: 'og:type', property: 'og:type', content: 'website' },
-  //     { hid: 'og:site_name', property: 'og:site_name', content: '무비실행' },
-  //     { hid: 'og:title', property: 'og:title', content: '무비실행' },
-  //     { hid: 'og:description', property: 'og:description', content: store.theMovie.Plot },
-  //     console.log('2.$2.2', store.theMovie.Title),
-  //     { hid: 'og:image', property: 'og:image', content: store.theMovie.Poster },
-  //     { hid: 'og:url', property: 'og:url', content: `${process.env.CLIENT_URL}${route.fullPath}` },
-  //   ],
-  // })
-  // test()
-})
+// const { theMovie, loading } = storeToRefs(store)
+useAsyncData('moive', () => store.searchMovieWithId({ id: route.params.id }))
+.then((res) => {
+    useHead({
+    meta: [
+      { hid: 'og:type', property: 'og:type', content: 'website' },
+      { hid: 'og:site_name', property: 'og:site_name', content: 'Nuxt Movie App' },
+      { hid: 'og:title', property: 'og:title', content: '수정' },
+      { hid: 'og:description', property: 'og:description', content: res.data.value.Plot },
+      { hid: 'og:image', property: 'og:image', content: res.data.value.Poster },
+      console.log('Plot', res.data.value.Plot),
+      console.log('Poster', res.data.value.Poster),
+      { hid: 'og:url', property: 'og:url', content: `${process.env.CLIENT_URL}${route.fullPath}` },
+    ],
+  })
+  })
 
 const { $loadImage } = useNuxtApp()
 const imageLoading = ref(true)
 const requestDiffSizeImage = (url, size = 700) => {
+
   if (!url || url === 'N/A') {
     imageLoading.value = false
     return ''
@@ -104,20 +105,24 @@ const requestDiffSizeImage = (url, size = 700) => {
     })
   return src
 }
-const test = () => {
-  useHead({
-    meta: [
-      { hid: 'og:type', property: 'og:type', content: 'website' },
-      { hid: 'og:site_name', property: 'og:site_name', content: 'Nuxt Movie App' },
-      { hid: 'og:title', property: 'og:title', content: '테스트중' },
-      { hid: 'og:description', property: 'og:description', content: store.$state.theMovie.Plot },
-      { hid: 'og:image', property: 'og:image', content: store.theMovie.Poster },
-      console.log('2.$2.2', store.$state.theMovie.Plot),
-      { hid: 'og:url', property: 'og:url', content: `${process.env.CLIENT_URL}${route.fullPath}` },
-    ],
-  })
-}
-test()
+
+
+// async function test() {
+//   useHead({
+//     meta: [
+//       { hid: 'og:type', property: 'og:type', content: 'website' },
+//       { hid: 'og:site_name', property: 'og:site_name', content: 'Nuxt Movie App' },
+//       { hid: 'og:title', property: 'og:title', content: '테스트중' },
+//       { hid: 'og:description', property: 'og:description', content: body.Plot },
+//       { hid: 'og:image', property: 'og:image', content: body.Poster },
+//       console.log('Plot', body.Plot),
+//       console.log('Poster', body.Poster),
+//       { hid: 'og:url', property: 'og:url', content: `${process.env.CLIENT_URL}${route.fullPath}` },
+//     ],
+//   })
+// }
+console.log('3',)
+// test()
 </script>
 
 <style lang="scss" scoped>

@@ -62,7 +62,7 @@ export const movieStore = defineStore('movie', {
       
       try {
         const res = await _fetchMovie(payload)
-        this.theMovie = res.body
+        return this.theMovie = res.body
       } catch (error) {
         this.theMovie = {}
       } finally {
