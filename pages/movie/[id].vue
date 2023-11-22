@@ -65,15 +65,15 @@
 
 
 <script setup>
-const route = useRoute()
-const store = movieStore()
-useAsyncData('moive', () => store.searchMovieWithId({ id: route.params.id }))
 
 import { ref } from 'vue'
 import Loader from '../components/Loader'
 import { movieStore } from '@/stores/movie'
 
+const route = useRoute()
+const store = movieStore()
 const { theMovie, loading } = storeToRefs(store)
+useAsyncData('moive', () => store.searchMovieWithId({ id: route.params.id}))
 
 const { $loadImage } = useNuxtApp()
 const imageLoading = ref(true)
@@ -90,17 +90,26 @@ const requestDiffSizeImage = (url, size = 700) => {
   return src
 }
 
-useHead({
-  meta: [
-    { hid: 'og:type', property: 'og:type', content: 'website' },
-    { hid: 'og:site_name', property: 'og:site_name', content: 'Nuxt Movie App' },
-    { hid: 'og:title', property: 'og:title', content: theMovie.Title },
-    { hid: 'og:description', property: 'og:description', content: theMovie.Plot },
-    { hid: 'og:image', property: 'og:image', content: theMovie.Poster },
-    { hid: 'og:image', property: 'og:url', content: `${process.env.CLIENT_URL}${route.fullPath}` },
-  ],
-
+useSeoMeta({
+  name: 'Nuxt Movie App',
+  title: theMovie.Title,
+  ogTitle: theMovie.Title,
+  description: store.$state.theMovie.Plot,
+  ogDescription: store.$state.theMovie.Plot,
+  ogImage: store.$state.theMovie.Poster,
+  
+  // meta: [
+  //   { hid: 'og:type', property: 'og:type', content: 'website' },
+  //   { hid: 'og:site_name', property: 'og:site_name', content: 'Nuxt Movie App' },
+  //   { hid: 'og:title', property: 'og:title', content: store.$state.theMovie.Title },
+  //   console.log('theMovie.Title', theMovie.Title),
+  //   { hid: 'og:description', property: 'og:description', content: store.$state.theMovie.Plot },
+  //   { hid: 'og:image', property: 'og:image', content: store.$state.theMovie.Poster },
+  //   { hid: 'og:image', property: 'og:url', content: `${process.env.CLIENT_URL}${route.fullPath}` },
+  // ],
 })
+console.log('theMovie.Title', theMovie.value.$loadImage)
+
 
 </script>
 
