@@ -65,23 +65,21 @@
 
 
 <script setup>
+const route = useRoute()
+const store = movieStore()
+useAsyncData('moive', () => store.searchMovieWithId({ id: route.params.id}))
+
 import { ref } from 'vue'
 import Loader from '../components/Loader'
-const { CLIENT_URL } = process.env
-
 import { movieStore } from '@/stores/movie'
-const store = movieStore()
-const { loading, theMovie, } = storeToRefs(store)
 
-const route = useRoute()
-await useAsyncData('moive', () => store.searchMovieWithId({ id: route.params.id }))
+const { theMovie, loading} = storeToRefs(store)
 
 const { $loadImage } = useNuxtApp()
 const imageLoading = ref(true)
 const requestDiffSizeImage = (url, size = 700) => {
   if (!url || url === 'N/A') {
     imageLoading.value = false
-    console.log('이미지 없음', imageLoading)
     return ''
   }
   const src = url.replace('SX300', `SX${size}`)
@@ -91,6 +89,8 @@ const requestDiffSizeImage = (url, size = 700) => {
     })
   return src
 }
+
+const { CLIENT_URL } = process.env
 const head =()=> {
   return {
     meta: [

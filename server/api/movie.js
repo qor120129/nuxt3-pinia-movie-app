@@ -11,7 +11,6 @@ export default defineEventHandler(async (event) => {
   try {
     const data = await $fetch(url)
     if (data.Error) {
-      // setResponseStatus(event, 400)
       throw createError({
         statusCode: 400,
         statusMessage: data.Error,

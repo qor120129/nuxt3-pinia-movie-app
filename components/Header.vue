@@ -9,7 +9,7 @@
       </div>
     </div>
     <div @click="toAbout" class="user">
-      <img :src="about.image" :alt="about.name">
+      <img :src="image" :alt="name">
     </div>
   </header>
 </template>
@@ -20,12 +20,11 @@ import { useRouter, useRoute } from 'vue-router'
 import Logo from "@/components/Logo.vue"
 import { aboutStore } from '@/stores/about'
 
-const store = aboutStore()
 const router = useRouter()
 const route = useRoute()
-const about = computed(() => 
-    store.$state
-)
+const store = aboutStore()
+const { name, image  } = storeToRefs(store)
+
 const navigations = [
   {
     name: 'Search',
