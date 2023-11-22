@@ -81,18 +81,9 @@ const image = ref('')
 useAsyncData('moive', () => store.searchMovieWithId({ id: route.params.id })).then(res => {
   title.value = store.$state.theMovie.Title,
   description.value = store.$state.theMovie.Plot,
-  image.value = store.$state.theMovie.Poster
-  console.log('store.$state.theMovie', store.$state.theMovie.Title)
-})
-useHead({
-  meta: [
-    { hid: 'og:type', property: 'og:type', content: 'website' },
-    { hid: 'og:site_name', property: 'og:site_name', content: 'Nuxt Movie App' },
-    { hid: 'og:title', property: 'og:title', content: title.value},
-    { hid: 'og:description', property: 'og:description', content: description.value },
-    { hid: 'og:image', property: 'og:image', content: image.value},
-    { hid: 'og:image', property: 'og:url', content: `${process.env.CLIENT_URL}${route.fullPath}` },
-  ],
+  image.value = store.$state.theMovie.Poster,
+  console.log('1.$1.1', image.value )
+  useHead()
 })
 
 const { $loadImage } = useNuxtApp()
@@ -109,6 +100,17 @@ const requestDiffSizeImage = (url, size = 700) => {
     })
   return src
 }
+const useHead=(() =>({
+  meta: [
+    { hid: 'og:type', property: 'og:type', content: 'website' },
+    { hid: 'og:site_name', property: 'og:site_name', content: 'Nuxt Movie App' },
+    { hid: 'og:title', property: 'og:title', content: title.value},
+    { hid: 'og:description', property: 'og:description', content: description.value },
+    console.log('2.$2.2', image.value ),
+    { hid: 'og:image', property: 'og:image', content: image.value},
+    { hid: 'og:image', property: 'og:url', content: `${process.env.CLIENT_URL}${route.fullPath}` },
+  ],
+}))
 
 
 
