@@ -12,9 +12,7 @@ export const movieStore = defineStore('movie', {
 
   actions: {
     async resetMovies() {
-      this.movies = [],
-      this.message = _defaultMessage,
-      this.loading = false
+      this.$reset()
     },
     async searchMovies(payload) {
       if (this.loading) return
