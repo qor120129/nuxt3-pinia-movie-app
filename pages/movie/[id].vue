@@ -34,7 +34,8 @@
         <div class="ratings">
           <h3>Ratings</h3>
           <div class="rating-wrap">
-            <div v-for="{ Source: name, Value: score } in store.theMovie.Ratings" :key="name" :title="name" class="rating">
+            <div v-for="{ Source: name, Value: score } in store.theMovie.Ratings" :key="name" :title="name"
+              class="rating">
               <img
                 :src="`https://raw.githubusercontent.com/qor120129/vue3-movie-app/dfb1cde1769f96cedf445f03cb0ea655ec6a581a/src/assets/img/${name}.png`"
                 :alt="name">
@@ -72,21 +73,21 @@ import { movieStore } from '@/stores/movie'
 
 const route = useRoute()
 const store = movieStore()
-const { data } = storeToRefs(store.theMovie)
-// const { theMovie, loading } = storeToRefs({store})
+
 
 useAsyncData('moive', () => store.searchMovieWithId({ id: route.params.id })).then((res) => {
-//   useHead({
-//   meta: [
-//     { hid: 'og:type', property: 'og:type', content: 'website' },
-//     { hid: 'og:site_name', property: 'og:site_name', content: '무비실행' },
-//     { hid: 'og:title', property: 'og:title', content: '무비실행' },
-//     { hid: 'og:description', property: 'og:description', content: store.theMovie.Plot },
-//     console.log('2.$2.2', store.theMovie.Title),
-//     { hid: 'og:image', property: 'og:image', content: store.theMovie.Poster },
-//     { hid: 'og:url', property: 'og:url', content: `${process.env.CLIENT_URL}${route.fullPath}` },
-//   ],
-// })
+  //   useHead({
+  //   meta: [
+  //     { hid: 'og:type', property: 'og:type', content: 'website' },
+  //     { hid: 'og:site_name', property: 'og:site_name', content: '무비실행' },
+  //     { hid: 'og:title', property: 'og:title', content: '무비실행' },
+  //     { hid: 'og:description', property: 'og:description', content: store.theMovie.Plot },
+  //     console.log('2.$2.2', store.theMovie.Title),
+  //     { hid: 'og:image', property: 'og:image', content: store.theMovie.Poster },
+  //     { hid: 'og:url', property: 'og:url', content: `${process.env.CLIENT_URL}${route.fullPath}` },
+  //   ],
+  // })
+  // test()
 })
 
 const { $loadImage } = useNuxtApp()
@@ -103,18 +104,20 @@ const requestDiffSizeImage = (url, size = 700) => {
     })
   return src
 }
-useHead({
+const test = () => {
+  useHead({
     meta: [
       { hid: 'og:type', property: 'og:type', content: 'website' },
       { hid: 'og:site_name', property: 'og:site_name', content: 'Nuxt Movie App' },
-      { hid: 'og:title', property: 'og:title', content: '실행중이다' },
-      { hid: 'og:description', property: 'og:description', content: store.theMovie.Plot},
-      { hid: 'og:image', property: 'og:image', content: store.theMovie.Poster},
-      console.log('2.$2.2', store.theMovie),
+      { hid: 'og:title', property: 'og:title', content: '테스트중' },
+      { hid: 'og:description', property: 'og:description', content: store.$state.theMovie.Plot },
+      { hid: 'og:image', property: 'og:image', content: store.theMovie.Poster },
+      console.log('2.$2.2', store.$state.theMovie.Plot),
       { hid: 'og:url', property: 'og:url', content: `${process.env.CLIENT_URL}${route.fullPath}` },
     ],
-})
-
+  })
+}
+test()
 </script>
 
 <style lang="scss" scoped>
