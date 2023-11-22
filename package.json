@@ -2,18 +2,12 @@
   "name": "nuxt-app",
   "private": true,
   "type": "module",
-  "jest": {
-    "transformIgnorePatterns": [
-      "node_modules/(?!axios)"
-    ]
-  },
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "test:unit": "jest --watchAll"
+    "postinstall": "nuxt prepare"
   },
   "browserslist": [
     "> 1%",
