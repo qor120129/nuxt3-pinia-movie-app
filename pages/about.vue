@@ -34,8 +34,7 @@ async function init() {
   return imageLoading.value = false
 }
 init()
-const head = () => {
-  return {
+useHead({
     meta: [
       { hid: 'og:type', property: 'og:type', content: 'website' },
       { hid: 'og:site_name', property: 'og:site_name', content: 'Nuxt Movie App' },
@@ -44,9 +43,7 @@ const head = () => {
       { hid: 'og:image', property: 'og:image', content: image },
       { hid: 'og:image', property: 'og:url', content: `${process.env.CLIENT_URL}${route.fullPath}` },
     ],
-  }
-}
-head()
+})
 </script>
 
 <style lang="scss" scoped>
