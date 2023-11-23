@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <template v-if="store.loading">
+    <template v-if="loading">
       <div class="skeletons">
         <div class="skeleton poster">
         </div>
@@ -16,26 +16,25 @@
       <Loader :size="3" :zIndex="9" fixed />
     </template>
     <div v-else class="movie-details">
-      <div :style="{ backgroundImage: `url(${requestDiffSizeImage(store.theMovie.Poster)})` }" class="poster">
+      <div :style="{ backgroundImage: `url(${requestDiffSizeImage(theMovie.Poster)})` }" class="poster">
         <Loader v-if="imageLoading" absolute />
       </div>
       <div class="specs">
         <div class="title">
-          <span>{{ store.theMovie.Title }}</span>
+          <span>{{ theMovie.Title }}</span>
         </div>
         <div class="labels">
-          <span>{{ store.theMovie.Released }}</span>
-          <span>{{ store.theMovie.Runtime }}</span>
-          <span>{{ store.theMovie.Country }}</span>
+          <span>{{ theMovie.Released }}</span>
+          <span>{{ theMovie.Runtime }}</span>
+          <span>{{ theMovie.Country }}</span>
         </div>
         <div class="plot">
-          {{ store.theMovie.Plot }}
+          {{ theMovie.Plot }}
         </div>
         <div class="ratings">
           <h3>Ratings</h3>
           <div class="rating-wrap">
-            <div v-for="{ Source: name, Value: score } in store.theMovie.Ratings" :key="name" :title="name"
-              class="rating">
+            <div v-for="{ Source: name, Value: score } in theMovie.Ratings" :key="name" :title="name" class="rating">
               <img
                 :src="`https://raw.githubusercontent.com/qor120129/vue3-movie-app/dfb1cde1769f96cedf445f03cb0ea655ec6a581a/src/assets/img/${name}.png`"
                 :alt="name">
@@ -45,25 +44,24 @@
         </div>
         <div class="">
           <h3>Actors</h3>
-          {{ store.theMovie.Actors }}
+          {{ theMovie.Actors }}
         </div>
         <div class="">
           <h3>Director</h3>
-          {{ store.theMovie.Director }}
+          {{ theMovie.Director }}
         </div>
         <div class="">
           <h3>Production</h3>
-          {{ store.theMovie.Production }}
+          {{ theMovie.Production }}
         </div>
         <div class="">
           <h3>Genre</h3>
-          {{ store.theMovie.Genre }}
+          {{ theMovie.Genre }}
         </div>
       </div>
     </div>
   </div>
 </template>
-
 
 <script setup>
 
@@ -71,15 +69,14 @@ import { ref } from 'vue'
 import Loader from '../components/Loader'
 import { movieStore } from '@/stores/movie'
 
+const { theMovie, loading } = storeToRefs(store)
 const route = useRoute()
 const store = movieStore()
-// const { theMovie, loading } = storeToRefs(store)
-const { data }  = await useAsyncData( () =>  store.searchMovieWithId({ id: route.params.id }))
+const { data } = await useAsyncData(() => store.searchMovieWithId({ id: route.params.id }))
 
 const { $loadImage } = useNuxtApp()
 const imageLoading = ref(true)
 const requestDiffSizeImage = (url, size = 700) => {
-
   if (!url || url === 'N/A') {
     imageLoading.value = false
     return ''
@@ -91,14 +88,15 @@ const requestDiffSizeImage = (url, size = 700) => {
     })
   return src
 }
+
 useHead({
   meta: [
     { hid: 'og:type', property: 'og:type', content: 'website' },
     { hid: 'og:site_name', property: 'og:site_name', content: 'Nuxt Movie App' },
-    { hid: 'og:title', property: 'og:title', content:  data.value.Title },
+    { hid: 'og:title', property: 'og:title', content: data.value.Title },
     { hid: 'og:description', property: 'og:description', content: data.value.Plot },
     { hid: 'og:image', property: 'og:image', content: data.value.Poster },
-    { hid: 'og:url', property: 'og:url', content: `${process.env.CLIENT_URL}${route.fullPath}` },
+    { hid: 'og:url', property: 'og:url', content: `${process.env.CLIENT_URL}${route.fullPath}` }
   ],
 })
 
