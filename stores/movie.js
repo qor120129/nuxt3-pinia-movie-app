@@ -9,14 +9,14 @@ export const movieStore = defineStore('movie', {
     loading: false,
     theMovie: {}
   }),
-
   actions: {
     async resetMovies() {
       this.$reset()
     },
+
     async searchMovies(payload) {
       if (this.loading) return
-
+      console.log('bbb', this.loading)
       this.message = ''
       this.movies = []
       this.loading = true
@@ -50,19 +50,22 @@ export const movieStore = defineStore('movie', {
         }
       } catch (error) {
         this.movies = [],
-        this.message = error.statusMessage
+          this.message = error.statusMessage
       } finally {
         this.loading = false
       }
     },
+
     async searchMovieWithId(payload) {
       if (this.loading) return
+      console.log('localStorage', localStorage)
+
       this.theMovie = {}
       this.loading = true
-      
+
       try {
         const res = await _fetchMovie(payload)
-        return this.theMovie = res.body
+        return [this.theMovie = res.body]
       } catch (error) {
         this.theMovie = {}
       } finally {
@@ -73,5 +76,5 @@ export const movieStore = defineStore('movie', {
   },
 })
 async function _fetchMovie(payload) {
-  return await  $fetch('/api/movie', { method: 'post', query: payload })
+  return await $fetch('/api/movie', { method: 'post', query: payload })
 }

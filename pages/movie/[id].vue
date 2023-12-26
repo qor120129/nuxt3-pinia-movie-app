@@ -72,7 +72,6 @@ import { movieStore } from '@/stores/movie'
 const route = useRoute()
 const store = movieStore()
 const { theMovie, loading } = storeToRefs(store)
-const { data } = await useAsyncData(() => store.searchMovieWithId({ id: route.params.id }))
 
 const { $loadImage } = useNuxtApp()
 const imageLoading = ref(true)
@@ -89,13 +88,15 @@ const requestDiffSizeImage = (url, size = 700) => {
   return src
 }
 
+store.searchMovieWithId({ id: route.params.id })
+
 useHead({
   meta: [
     { hid: 'og:type', property: 'og:type', content: 'website' },
     { hid: 'og:site_name', property: 'og:site_name', content: 'Nuxt Movie App' },
-    { hid: 'og:title', property: 'og:title', content: data.value.Title },
-    { hid: 'og:description', property: 'og:description', content: data.value.Plot },
-    { hid: 'og:image', property: 'og:image', content: data.value.Poster },
+    { hid: 'og:title', property: 'og:title', content: theMovie.value.Title },
+    { hid: 'og:description', property: 'og:description', content: theMovie.value.Plot },
+    { hid: 'og:image', property: 'og:image', content: theMovie.value.Poster },
     { hid: 'og:url', property: 'og:url', content: `${process.env.CLIENT_URL}${route.fullPath}` }
   ],
 })
