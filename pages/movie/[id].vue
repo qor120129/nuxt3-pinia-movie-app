@@ -73,15 +73,15 @@ const route = useRoute()
 const store = movieStore()
 const { theMovie, loading } = storeToRefs(store)
 
-async function asyncData() {
-  await useAsyncData(() => {
-    return store.searchMovieWithId({ id: route.params.id })
-  })
+const asyncData = ref({})
+
+async function a() {
+  const { data } = await useAsyncData(() => store.searchMovieWithId({ id: route.params.id }))
+  asyncData.value = data.value[0]
+  return asyncData.value
 }
+a()
 
-asyncData()
-
-console.log('data',asyncData())
 
 const { $loadImage } = useNuxtApp()
 const imageLoading = ref(true)
@@ -100,10 +100,12 @@ const requestDiffSizeImage = (url, size = 700) => {
 
 useHead({
   meta: [
+    console.log(asyncData.value),
+    console.log(store.theMovie.value),
     { hid: 'og:type', property: 'og:type', content: 'website' },
     { hid: 'og:site_name', property: 'og:site_name', content: 'Nuxt Movie App' },
-    { hid: 'og:title', property: 'og:title', content: 'aa' },
-    { hid: 'og:description', property: 'og:description', content: theMovie.value.Plot },
+    { hid: 'og:title', property: 'og:title', content: store.theMovie.Title },
+    { hid: 'og:description', property: 'og:description', content: asyncData.value.Plot },
     { hid: 'og:image', property: 'og:image', content: theMovie.value.Poster },
     { hid: 'og:url', property: 'og:url', content: `${process.env.CLIENT_URL}${route.fullPath}` }
   ],
