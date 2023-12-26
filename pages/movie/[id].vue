@@ -69,9 +69,9 @@ import { ref } from 'vue'
 import Loader from '../components/Loader'
 import { movieStore } from '@/stores/movie'
 
-const { theMovie, loading } = storeToRefs(store)
 const route = useRoute()
 const store = movieStore()
+const { theMovie, loading } = storeToRefs(store)
 const { data } = await useAsyncData(() => store.searchMovieWithId({ id: route.params.id }))
 
 const { $loadImage } = useNuxtApp()
