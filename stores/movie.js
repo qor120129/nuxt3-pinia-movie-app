@@ -16,7 +16,7 @@ export const movieStore = defineStore('movie', {
 
     async searchMovies(payload) {
       if (this.loading) return
-      console.log('bbb', this.loading)
+
       this.message = ''
       this.movies = []
       this.loading = true
@@ -58,8 +58,6 @@ export const movieStore = defineStore('movie', {
 
     async searchMovieWithId(payload) {
       if (this.loading) return
-      console.log('localStorage', localStorage)
-
       this.theMovie = {}
       this.loading = true
 

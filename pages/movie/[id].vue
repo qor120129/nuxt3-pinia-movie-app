@@ -87,8 +87,11 @@ const requestDiffSizeImage = (url, size = 700) => {
     })
   return src
 }
-
-store.searchMovieWithId({ id: route.params.id })
+async function asyncData() {
+  await useAsyncData(() => store.searchMovieWithId({ id: route.params.id })
+  )
+}
+asyncData()
 
 useHead({
   meta: [
@@ -100,6 +103,7 @@ useHead({
     { hid: 'og:url', property: 'og:url', content: `${process.env.CLIENT_URL}${route.fullPath}` }
   ],
 })
+console.log(theMovie.value.Title)
 
 </script>
 
