@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div :class="{ 'no-result': !movies.length }" class="inner">
-      <Loader v-if="loading" />
+      <Loader v-if="searchLoading" />
       <div v-if="message" class="message">
         <div>{{ message }}</div>
       </div>
@@ -18,7 +18,7 @@ import Loader from './Loader'
 import { movieStore } from '@/stores/movie'
 
 const store = movieStore()
-const { message, movies, loading } = storeToRefs(store)
+const { message, movies, searchLoading } = storeToRefs(store)
 
 </script>
 <style lang="scss" scoped>

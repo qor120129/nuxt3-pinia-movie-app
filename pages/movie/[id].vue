@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <template v-if="loading">
+    <template v-if=" 'success' !== status">
       <div class="skeletons">
         <div class="skeleton poster">
         </div>
@@ -42,19 +42,19 @@
             </div>
           </div>
         </div>
-        <div class="">
+        <div>
           <h3>Actors</h3>
           {{ theMovie.Actors }}
         </div>
-        <div class="">
+        <div>
           <h3>Director</h3>
           {{ theMovie.Director }}
         </div>
-        <div class="">
+        <div>
           <h3>Production</h3>
           {{ theMovie.Production }}
         </div>
-        <div class="">
+        <div>
           <h3>Genre</h3>
           {{ theMovie.Genre }}
         </div>
@@ -72,14 +72,10 @@ import { movieStore } from '@/stores/movie'
 const route = useRoute()
 const store = movieStore()
 const { theMovie, loading } = storeToRefs(store)
-const { searchMovieWithId } = store
 
+const {  pending , status} = await useAsyncData(() => store.searchMovieWithId({ id: route.params.id }))
+console.log('pending', status.value)
 
-await useAsyncData(() => {
-  searchMovieWithId({ id: route.params.id })
-})
-
-console.log('theMovie', theMovie)
 const { $loadImage } = useNuxtApp()
 const imageLoading = ref(true)
 const requestDiffSizeImage = (url, size = 700) => {

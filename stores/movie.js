@@ -7,6 +7,7 @@ export const movieStore = defineStore('movie', {
     movies: [],
     message: _defaultMessage,
     loading: false,
+    searchLoading: false,
     theMovie: {}
   }),
   actions: {
@@ -19,7 +20,7 @@ export const movieStore = defineStore('movie', {
 
       this.message = ''
       this.movies = []
-      this.loading = true
+      this.searchLoading = true
 
       try {
         const res = await _fetchMovie({
@@ -52,7 +53,7 @@ export const movieStore = defineStore('movie', {
         this.movies = [],
           this.message = error.statusMessage
       } finally {
-        this.loading = false
+        this.searchLoading = false
       }
     },
 
